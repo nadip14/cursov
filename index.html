@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Learner - Изучаем HTML легко</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #ecf0f1;
+            --accent: #e74c3c;
+            --text: #34495e;
+            --light: #fff;
+            --dark: #2c3e50;
+            --code-bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --border-color: #ddd;
+        }
+
+        /* Тёмная тема */
+        .dark-theme {
+            --primary: #1a252f;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --text: #ecf0f1;
+            --light: #34495e;
+            --dark: #ecf0f1;
+            --code-bg: #1a252f;
+            --card-bg: #2c3e50;
+            --border-color: #34495e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+        
+        body {
+            background-color: var(--secondary);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: var(--primary);
+            color: var(--light);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--light);
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        /* Кнопка переключения темы */
+        .theme-toggle {
+            background: transparent;
+            border: 2px solid var(--light);
+            color: var(--light);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .theme-toggle:hover {
+            background: var(--light);
+            color: var(--primary);
+        }
+        
+        .theme-icon {
+            font-size: 1.1rem;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            color: var(--light);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--light);
+            padding: 0.7rem 1.5rem;
+            border-radius: 0.3rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background: #c0392b;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2rem;
+            color: var(--text);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            margin: 0.5rem auto 0;
+        }
+        
+        .lesson-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+        
+        .lesson-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .lesson-header {
+            background: var(--primary);
+            color: var(--light);
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .lesson-title {
+            font-size: 1.3rem;
+        }
+        
+        .lesson-content {
+            padding: 1.5rem;
+        }
+        
+        .lesson-content h3 {
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+        
+        .lesson-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .code-example {
+            background: var(--code-bg);
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+            overflow-x: auto;
+            color: var(--text);
+        }
+        
+        .code-example pre {
+            white-space: pre-wrap;
+            font-family: 'Courier New', Courier, monospace;
+            color: var(--text);
+        }
+        
+        .try-it {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .try-it h4 {
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+        
+        .try-it-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            transition: background 0.3s;
+        }
+        
+        .try-it-btn:hover {
+            background: #c0392b;
+        }
+        
+        textarea.code-example {
+            background: var(--code-bg);
+            color: var(--text);
+            border: 1px solid var(--border-color);
+            font-family: 'Courier New', Courier, monospace;
+        }
+        
+        .result-container {
+            margin-top: 1rem;
+            padding: 1rem;
+            border: 1px dashed var(--border-color);
+            border-radius: 4px;
+            background: var(--card-bg);
+            min-height: 50px;
+        }
+        
+        footer {
+            background: var(--primary);
+            color: var(--light);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">HTML<span>Learner</span></div>
+            <ul class="nav-links">
+                <li><a href="#lessons">Уроки</a></li>
+                <li><a href="#examples">Примеры</a></li>
+                <li><a href="#practice">Практика</a></li>
+                <li><a href="#about">О проекте</a></li>
+                <li>
+                    <button class="theme-toggle" onclick="toggleTheme()">
+                        <span class="theme-icon">🌙</span>
+                        <span class="theme-text">Тёмная</span>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <h1>курсовая некрасова</h1>
+        <p>благодарность НАДиПу за то что я умею делать такие класные сайты</p>
+        <a href="#lessons" class="btn">Начать обучение</a>
+    </section>
+    
+    <section class="container" id="lessons">
+        <h2 class="section-title">Уроки HTML</h2>
+        
+        <div class="lesson-card">
+            <div class="lesson-header">
+                <div class="lesson-title">Урок 1: Основы HTML</div>
+                <div class="lesson-level">Новичок</div>
+            </div>
+            <div class="lesson-content">
+                <h3>Что такое HTML?</h3>
+                <p>HTML (HyperText Markup Language) - это стандартный язык разметки для создания веб-страниц. Он определяет структуру и содержание веб-страницы.</p>
+                
+                <div class="code-example">
+                    <h4>Пример базовой HTML-страницы:</h4>
+                    <pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="ru"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Моя первая страница&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Привет, мир!&lt;/h1&gt;
+    &lt;p&gt;Это моя первая HTML-страница.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+                </div>
+                
+                <div class="try-it">
+                    <h4>Попробуйте сами:</h4>
+                    <p>Измените текст внутри тега &lt;h1&gt; и нажмите "Запустить":</p>
+                    <textarea id="code1" class="code-example" style="width: 100%; min-height: 150px;">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Моя страница&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Привет, мир!&lt;/h1&gt;
+    &lt;p&gt;Это мой первый HTML-код.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</textarea>
+                    <button class="try-it-btn" onclick="runCode(1)">Запустить код</button>
+                    <div class="result-container" id="result1"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="lesson-card">
+            <div class="lesson-header">
+                <div class="lesson-title">Урок 2: Работа с текстом</div>
+                <div class="lesson-level">Новичок</div>
+            </div>
+            <div class="lesson-content">
+                <h3>Основные теги для текста</h3>
+                <p>HTML предоставляет различные теги для форматирования текста:</p>
+                
+                <div class="code-example">
+                    <pre>&lt;p&gt;Это обычный абзац.&lt;/p&gt;
+&lt;strong&gt;Это жирный текст.&lt;/strong&gt;
+&lt;em&gt;Это курсив.&lt;/em&gt;
+&lt;h1&gt;Заголовок 1&lt;/h1&gt;
+&lt;h2&gt;Заголовок 2&lt;/h2&gt;
+&lt;!-- Это комментарий --&gt;</pre>
+                </div>
+                
+                <div class="try-it">
+                    <h4>Попробуйте добавить свои текстовые элементы:</h4>
+                    <textarea id="code2" class="code-example" style="width: 100%; min-height: 150px;">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+    &lt;h1&gt;Мой дневник&lt;/h1&gt;
+    &lt;p&gt;Сегодня я изучаю HTML.&lt;/p&gt;
+    &lt;p&gt;Это очень интересно!&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</textarea>
+                    <button class="try-it-btn" onclick="runCode(2)">Запустить код</button>
+                    <div class="result-container" id="result2"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="lesson-card">
+            <div class="lesson-header">
+                <div class="lesson-title">Урок 3: Ссылки и изображения</div>
+                <div class="lesson-level">Новичок</div>
+            </div>
+            <div class="lesson-content">
+                <h3>Добавление ссылок и изображений</h3>
+                <p>Тег &lt;a&gt; создает гиперссылки, а &lt;img&gt; добавляет изображения на страницу.</p>
+                
+                <div class="code-example">
+                    <pre>&lt;!-- Ссылка --&gt;
+&lt;a href="https://www.example.com"&gt;Посетите Example.com&lt;/a&gt;
+
+&lt;!-- Изображение --&gt;
+&lt;img src="image.jpg" alt="Описание изображения"&gt;
+
+&lt;!-- Ссылка с изображением --&gt;
+&lt;a href="https://www.example.com"&gt;
+    &lt;img src="logo.png" alt="Логотип"&gt;
+&lt;/a&gt;</pre>
+                </div>
+                
+                <div class="try-it">
+                    <h4>Попробуйте создать свою ссылку:</h4>
+                    <textarea id="code3" class="code-example" style="width: 100%; min-height: 150px;">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+    &lt;h1&gt;Мои любимые сайты&lt;/h1&gt;
+    &lt;p&gt;Вот сайт, который я часто посещаю:&lt;/p&gt;
+    &lt;a href="https://www.google.com"&gt;Перейти на Google&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;</textarea>
+                    <button class="try-it-btn" onclick="runCode(3)">Запустить код</button>
+                    <div class="result-container" id="result3"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="container" id="practice">
+        <h2 class="section-title">Практическое задание</h2>
+        
+        <div class="lesson-card">
+            <div class="lesson-header">
+                <div class="lesson-title">Создайте свою страницу</div>
+                <div class="lesson-level">Практика</div>
+            </div>
+            <div class="lesson-content">
+                <h3>Объедините полученные знания</h3>
+                <p>Создайте HTML-страницу, которая включает:</p>
+                <ul style="margin-left: 2rem; margin-bottom: 1rem;">
+                    <li>Заголовок (h1)</li>
+                    <li>Несколько абзацев текста (p)</li>
+                    <li>Жирный и курсивный текст (strong, em)</li>
+                    <li>Ссылку на внешний сайт (a)</li>
+                    <li>Изображение (img)</li>
+                </ul>
+                
+                <div class="try-it">
+                    <h4>Редактор кода:</h4>
+                    <textarea id="practice-code" class="code-example" style="width: 100%; min-height: 250px;">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Моя страница&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Ваш код здесь --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</textarea>
+                    <button class="try-it-btn" onclick="runCode('practice')">Запустить код</button>
+                    <div class="result-container" id="practice-result"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <p>&copy; 2023 HTML Learner. Все права защищены.</p>
+        <p>Образовательный проект для изучения HTML</p>
+    </footer>
+    
+    <script>
+        // Функция для выполнения кода в редакторе
+        function runCode(lessonId) {
+            const codeElement = document.getElementById(`code${lessonId}`);
+            const resultElement = document.getElementById(`result${lessonId}`);
+            
+            if (codeElement && resultElement) {
+                // Очищаем предыдущий результат
+                resultElement.innerHTML = '';
+                
+                // Создаем iframe для безопасного выполнения кода
+                const iframe = document.createElement('iframe');
+                iframe.style.width = '100%';
+                iframe.style.border = 'none';
+                iframe.style.minHeight = '200px';
+                resultElement.appendChild(iframe);
+                
+                // Получаем документ iframe
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                
+                // Записываем код в iframe
+                iframeDoc.open();
+                iframeDoc.write(codeElement.value);
+                iframeDoc.close();
+            }
+        }
+        
+        // Функция переключения темы
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.querySelector('.theme-toggle');
+            const themeIcon = themeToggle.querySelector('.theme-icon');
+            const themeText = themeToggle.querySelector('.theme-text');
+            
+            body.classList.toggle('dark-theme');
+            
+            if (body.classList.contains('dark-theme')) {
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Светлая';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Тёмная';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+        
+        // Загрузка сохранённой темы при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            runCode(1);
+            
+            const savedTheme = localStorage.getItem('theme');
+            const themeToggle = document.querySelector('.theme-toggle');
+            const themeIcon = themeToggle.querySelector('.theme-icon');
+            const themeText = themeToggle.querySelector('.theme-text');
+            
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Светлая';
+            }
+        });
+    </script>
+</body>
+</html>
